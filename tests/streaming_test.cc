@@ -40,9 +40,10 @@ void dumpData(const Rest::Request&req, Http::ResponseWriter response) {
             });
             workers.push_back(std::move(job));
         }
+        for (auto &w : workers) { w.join(); }
+        workers.clear();
     }
 
-    for (auto &w : workers) { w.join(); }
     stream.ends();
 }
 
